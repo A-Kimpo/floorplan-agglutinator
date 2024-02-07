@@ -1,0 +1,29 @@
+env:
+  browser: true
+  es2021: true
+extends: airbnb-base
+overrides: [
+  {
+    files: [ '*.svelte' ],
+    extends: [ 'plugin:svelte/base' ],
+    parser: 'svelte-eslint-parser',
+    parserOptions: {
+      parser: {
+        ts: '@typescript-eslint/parser',
+        js: 'espree'
+      }
+    }
+  }
+]
+parserOptions:
+  ecmaVersion: latest
+  sourceType: module
+rules: {
+  no-console: 0,
+  no-shadow: 0,
+  no-param-reassign: 0,
+  import/extensions: 0,
+  import/no-extraneous-dependencies: 0,
+  no-restricted-syntax: 0,
+  one-var: 0
+}
