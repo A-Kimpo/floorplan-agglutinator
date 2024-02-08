@@ -7,15 +7,14 @@
     /**
      * Get Context
      */
-    const selectedfloor = getContext('floor');
+    const selectedFloor = getContext('floor');
     const cfg = getContext('cfg');
 
-    $: console.log('$floor, $cfg', $selectedfloor, $cfg);
     const handleSelect = (floor) => {
       window.dispatchEvent(
         new CustomEvent('select-floor', { detail: floor }),
       );
-      $selectedfloor = floor;
+      $selectedFloor = floor;
     };
 
 </script>
@@ -25,7 +24,7 @@
         {#each Object.keys($cfg.floors) as floor}
             <div
                     on:click={() => handleSelect(floor)}
-                    class:active={$selectedfloor === floor}
+                    class:active={$selectedFloor === floor}
                     class="floor-cell flex-ctr">
                 {floor.toUpperCase()}
             </div>
@@ -42,36 +41,18 @@
 
   .wrapper {
     gap: 10px;
-    position: absolute;
-    bottom: 1%;
-    left: 50%;
+
     flex-direction: column;
   }
 
   .floor-control-wrapper {
     gap: 6px;
     color: #eeeeee;
-
-    &.mobile {
-      flex-direction: column;
-      padding-bottom: 310%;
-    }
   }
 
   .floor-cell {
-    width: 57px;
-    height: 42px;
-
-    &.mobile {
-      width: 39px;
-      height: 35px;
-      background-color: #232323bf;
-      font-size: 13px;
-      font-weight: 400;
-      line-height: 17px;
-      letter-spacing: 0;
-      text-align: center;
-    }
+    width: 40px;
+    height: 25px;
 
     border-radius: 8px;
     background-color: #353535;
@@ -85,14 +66,8 @@
     z-index: 2;
 
     &:hover {
-      background: var(--button_panel_background_hover);
-      box-shadow: var(--button_panel_shadow_hover);
-
-      :global(svg) {
-        :global(path) {
-          fill: var(--button_panel_fill_hover);
-        }
-      }
+      background: #2f2f2f;
+      box-shadow: #2f2f2f;
     }
 
     &.active {
