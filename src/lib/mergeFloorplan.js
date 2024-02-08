@@ -11,10 +11,10 @@ const fillCanvas = (canvas, ctx, floor, layers, options) => {
   const firstImage = layers[0]?.img;
   const currentFloor = options?.floors?.[floor];
 
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  canvas.width = options?.canvas?.width || firstImage?.width * 0.2;
-  canvas.height = options?.canvas?.height || firstImage?.height * 0.2;
+  canvas.width = window.innerWidth * 0.9;
+  canvas.height = window.innerHeight * 0.9;
+  // canvas.width = options?.canvas?.width || firstImage?.width * 0.2;
+  // canvas.height = options?.canvas?.height || firstImage?.height * 0.2;
 
   // Сортируем слои в зависимости от их z-index
   layers.sort((layer1, layer2) => layer1.zIndex - layer2.zIndex);
@@ -23,7 +23,9 @@ const fillCanvas = (canvas, ctx, floor, layers, options) => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   if (options?.canvas?.scale) {
+    ctx.translate(window.innerWidth / 2, window.innerHeight / 2);
     ctx.scale(options.canvas.scale, options.canvas.scale);
+    ctx.translate(-window.innerWidth / 2, -window.innerHeight / 2);
   }
 
   // Рисуем слои в соответствии с опциями из конфига
@@ -41,12 +43,25 @@ const fillCanvas = (canvas, ctx, floor, layers, options) => {
       ? currentFloor
       : null;
 
+    const imageCenter = {
+      top: canvas.height / 2 - layer?.height / 2,
+      left: canvas.width / 2 - layer?.width / 2,
+    };
+
     ctx.drawImage(
       layer.img,
-      floorPosition?.left ? layer?.left + floorPosition?.left : layer?.left || 0,
-      floorPosition?.top ? layer?.top + floorPosition?.top : layer?.top || 0,
-      (layer.img?.width || 0) * 0.2 || canvas.width,
-      (layer.img?.height || 0) * 0.2 || canvas.height,
+      floorPosition?.left
+        ? imageCenter.left + layer?.left + floorPosition?.left
+        : imageCenter.left + layer?.left || 0,
+      floorPosition?.top
+        ? imageCenter.top + layer?.top + floorPosition?.top
+        : imageCenter.top + layer?.top || 0,
+      layer?.width
+            || (layer.img?.width || 0) * 0.2
+            || canvas.width,
+      layer?.height
+            || (layer.img?.height || 0) * 0.2
+            || canvas.height,
     );
   });
 

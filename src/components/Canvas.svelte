@@ -105,7 +105,6 @@
     const handleMove = ({
       startX, startY, x, y,
     }) => {
-      console.log('pinch');
       if ($pinch === 'pinchLayer') {
         $cfg.floors[$selectedFloor].layers[$selectedLayer].top = y - startY;
         $cfg.floors[$selectedFloor].layers[$selectedLayer].left = x - startX;
@@ -114,15 +113,18 @@
         $cfg.floors[$selectedFloor].left = x - startX;
       }
     };
-
     const handleWheel = (e) => {
       if (!$zoom) return;
-      if (e.deltaY < 0) {
-        $cfg.canvas.scale += 0.05;
+
+      if (e.deltaY > 0) {
+        if ($cfg.zoom.minZoom > $cfg.canvas.scale) return;
+        $cfg.canvas.scale -= e.deltaY * 0.0005;
       } else {
-        $cfg.canvas.scale -= 0.05;
+        if ($cfg.zoom.maxZoom < $cfg.canvas.scale) return;
+        $cfg.canvas.scale -= e.deltaY * 0.0005;
       }
     };
+
     const loadImages = (node) => {
       canvas = node;
       mergeFloorplan(node, $floor, $cfg);
