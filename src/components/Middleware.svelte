@@ -15,8 +15,8 @@
      */
     const floor = writable(false);
     const layer = writable(false);
-    const pinch = writable(false);
-    const zoom = writable(false);
+    const pinch = writable('pinchFloor');
+    const zoom = writable(true);
     const cfg = writable(initConfig);
 
     /**

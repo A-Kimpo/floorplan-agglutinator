@@ -8,13 +8,10 @@ const loadLayer = (layer, options) => new Promise((resolve, reject) => {
 });
 
 const fillCanvas = (canvas, ctx, floor, layers, options) => {
-  const firstImage = layers[0]?.img;
   const currentFloor = options?.floors?.[floor];
 
   canvas.width = window.innerWidth * 0.9;
   canvas.height = window.innerHeight * 0.9;
-  // canvas.width = options?.canvas?.width || firstImage?.width * 0.2;
-  // canvas.height = options?.canvas?.height || firstImage?.height * 0.2;
 
   // Сортируем слои в зависимости от их z-index
   layers.sort((layer1, layer2) => layer1.zIndex - layer2.zIndex);
@@ -22,6 +19,7 @@ const fillCanvas = (canvas, ctx, floor, layers, options) => {
   // Очищаем контекст
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  // Устанавливаем зум в центре
   if (options?.canvas?.scale) {
     ctx.translate(window.innerWidth / 2, window.innerHeight / 2);
     ctx.scale(options.canvas.scale, options.canvas.scale);
