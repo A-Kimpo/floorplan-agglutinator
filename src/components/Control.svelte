@@ -66,7 +66,7 @@
     };
     const resetOpacity = (elem) => {
       if (elem === 'layer') {
-        $cfg.floors[$selectedFloor].layers[$selectedLayer].opacity = 1;
+        $cfg.floors[$selectedFloor].layers[$selectedLayer].opacity = $selectedLayer === 0 ? 0.5 : 1;
       }
       if (elem === 'floor') {
         $cfg.floors[$selectedFloor].groupOpacity = 1;
@@ -101,7 +101,7 @@
       opacity = layer?.opacity;
       position = { top: layer?.top || 0, left: layer?.left || 0 };
 
-      groupOpacity = $cfg.floors[$selectedFloor]?.groupOpacity;
+      groupOpacity = floor?.groupOpacity;
       groupPosition = { top: floor?.top || 0, left: floor?.left || 0 };
     }
     $: $selectedLayer = selectValue;
