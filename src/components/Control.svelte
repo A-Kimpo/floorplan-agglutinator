@@ -126,14 +126,14 @@
             </div>
             Layer position:
             <div class="inputs">
-                <label for="top">top: {position.top}</label>
-                <input id="top"
-                       on:change={() => ($cfg.floors[$selectedFloor].layers[$selectedLayer].top = inputTop)}
-                       bind:value={inputTop}/>
-                <label for="left">left: {position.left}</label>
-                <input id="left"
-                       on:change={() => ($cfg.floors[$selectedFloor].layers[$selectedLayer].left = inputLeft)}
-                       bind:value={inputLeft}/>
+                <span>top: {position.top}</span>
+                <!--                <input id="top"-->
+                <!--                       on:change={() => ($cfg.floors[$selectedFloor].layers[$selectedLayer].top = inputTop)}-->
+                <!--                       bind:value={inputTop}/>-->
+                <span>left: {position.left}</span>
+                <!--                <input id="left"-->
+                <!--                       on:change={() => ($cfg.floors[$selectedFloor].layers[$selectedLayer].left = inputLeft)}-->
+                <!--                       bind:value={inputLeft}/>-->
                 <div>
                     <label for="pinchLayer">pinch layer: </label>
                     <input id="pinchLayer" checked={$pinch === 'pinchLayer'} type="checkbox"
@@ -153,14 +153,14 @@
             </div>
             Floor position:
             <div class="inputs">
-                <label for="groupLeft">top: {groupPosition.top}</label>
-                <input name="groupTop"
-                       on:change={() => ($cfg.floors[$selectedFloor].top = groupInputTop)}
-                       bind:value={groupInputTop}/>
-                <label for="groupLeft">left: {groupPosition.left}</label>
-                <input id="groupLeft"
-                       on:change={() => ($cfg.floors[$selectedFloor].left = groupInputLeft)}
-                       bind:value={groupInputLeft}/>
+                <span>top: {groupPosition.top}</span>
+                <!--                <input name="groupTop"-->
+                <!--                       on:change={() => ($cfg.floors[$selectedFloor].top = groupInputTop)}-->
+                <!--                       bind:value={groupInputTop}/>-->
+                <span>left: {groupPosition.left}</span>
+                <!--                <input id="groupLeft"-->
+                <!--                       on:change={() => ($cfg.floors[$selectedFloor].left = groupInputLeft)}-->
+                <!--                       bind:value={groupInputLeft}/>-->
 
                 <div>
                     <label for="pinchFloor">pinch floor: </label>
