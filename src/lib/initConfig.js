@@ -2,6 +2,7 @@ export default {
   canvas: {
     format: 'image/png',
     quality: 0.92,
+    crossOrigin: '',
     width: '',
     height: '',
   },
@@ -16,7 +17,7 @@ export default {
     gf: {
       layers: [
         {
-          name: '0',
+          name: 'pod',
           src: '../../public/floorplans/unit/GF/0.png',
           opacity: 1,
           top: 0,
@@ -26,7 +27,7 @@ export default {
           zIndex: 0,
         },
         {
-          name: '1',
+          name: 'house',
           src: '../../public/floorplans/unit/GF/1.png',
           opacity: 1,
           top: 0,
@@ -45,7 +46,7 @@ export default {
     ff: {
       layers: [
         {
-          name: '0',
+          name: 'pod',
           src: '../../public/floorplans/unit/FF/0.png',
           opacity: 1,
           top: '',
@@ -55,7 +56,7 @@ export default {
           zIndex: '',
         },
         {
-          name: '1',
+          name: 'house',
           src: '../../public/floorplans/unit/FF/1.png',
           opacity: 1,
           top: '',
@@ -74,7 +75,7 @@ export default {
     rf: {
       layers: [
         {
-          name: '0',
+          name: 'pod',
           src: '../../public/floorplans/unit/RF/0.png',
           opacity: 1,
           top: '',
@@ -84,7 +85,7 @@ export default {
           zIndex: '',
         },
         {
-          name: '1',
+          name: 'house',
           src: '../../public/floorplans/unit/RF/1.png',
           opacity: 1,
           top: '',

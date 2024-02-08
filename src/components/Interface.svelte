@@ -1,7 +1,7 @@
 <script>
-    import FloorSelector from './FloorSelector.svelte';
+    import Control from './Control.svelte';
 </script>
 
-<FloorSelector/>
+<Control/>
 
 <slot/>
