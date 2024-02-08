@@ -1,11 +1,22 @@
 <script>
+    /**
+     * Svelte Import
+     */
     import { getContext } from 'svelte';
     import FloorSelector from './FloorSelector.svelte';
 
+    /**
+     * getContext
+     */
     const selectedFloor = getContext('floor');
     const selectedLayer = getContext('layer');
+    const pinch = getContext('pinch');
+    const zoom = getContext('zoom');
     const cfg = getContext('cfg');
 
+    /**
+     * Variables
+     */
     let opacity;
     let position;
     let inputTop = '';
@@ -18,24 +29,22 @@
 
     let selectValue;
 
-    $: if ($selectedFloor) {
-      const layer = $cfg.floors[$selectedFloor]?.layers[$selectedLayer];
-      const floor = $cfg.floors[$selectedFloor];
-
-      opacity = layer?.opacity;
-      position = { top: layer?.top || 0, left: layer?.left || 0 };
-
-      groupOpacity = $cfg.floors[$selectedFloor]?.groupOpacity;
-      groupPosition = { top: floor?.top || 0, left: floor?.left || 0 };
-    }
-
+    /**
+     * Functions
+     */
     const increaseOpacity = (elem) => {
       if (elem === 'layer') {
-        if ($cfg.floors[$selectedFloor].layers[$selectedLayer].opacity >= 1) return;
+        if ($cfg.floors[$selectedFloor].layers[$selectedLayer].opacity >= 0.9) {
+          $cfg.floors[$selectedFloor].layers[$selectedLayer].opacity = 1;
+          return;
+        }
         $cfg.floors[$selectedFloor].layers[$selectedLayer].opacity = (+$cfg.floors[$selectedFloor].layers[$selectedLayer].opacity + 0.1).toFixed(1);
       }
       if (elem === 'floor') {
-        if ($cfg.floors[$selectedFloor].groupOpacity >= 1) return;
+        if ($cfg.floors[$selectedFloor].groupOpacity >= 0.9) {
+          $cfg.floors[$selectedFloor].groupOpacity = 1;
+          return;
+        }
         $cfg.floors[$selectedFloor].groupOpacity = (+$cfg.floors[$selectedFloor].groupOpacity + 0.1).toFixed(1);
       }
     };
@@ -76,13 +85,28 @@
         $cfg.floors[$selectedFloor].left = 0;
         groupInputTop = '';
         groupInputLeft = '';
+
+        $zoom = false;
       }
+      $pinch = false;
     };
 
+    /**
+     * Reactivity
+     */
+    $: if ($selectedFloor) {
+      const layer = $cfg.floors[$selectedFloor]?.layers[$selectedLayer];
+      const floor = $cfg.floors[$selectedFloor];
+
+      opacity = layer?.opacity;
+      position = { top: layer?.top || 0, left: layer?.left || 0 };
+
+      groupOpacity = $cfg.floors[$selectedFloor]?.groupOpacity;
+      groupPosition = { top: floor?.top || 0, left: floor?.left || 0 };
+    }
     $: $selectedLayer = selectValue;
     $: inputTop = '', inputLeft = '', $selectedLayer;
     $: groupInputTop = '', groupInputLeft = '', $selectedFloor;
-
 </script>
 
 {#if $selectedFloor}
@@ -110,6 +134,11 @@
                 <input id="left"
                        on:change={() => ($cfg.floors[$selectedFloor].layers[$selectedLayer].left = inputLeft)}
                        bind:value={inputLeft}/>
+                <div>
+                    <label for="pinchLayer">pinch layer: </label>
+                    <input id="pinchLayer" checked={$pinch === 'pinchLayer'} type="checkbox"
+                           on:change={() => ($pinch = 'pinchLayer')}/>
+                </div>
                 <button class="btn" on:click={() => resetPosition('layer')}>reset</button>
             </div>
         </div>
@@ -132,11 +161,20 @@
                 <input id="groupLeft"
                        on:change={() => ($cfg.floors[$selectedFloor].left = groupInputLeft)}
                        bind:value={groupInputLeft}/>
+
+                <div>
+                    <label for="pinchFloor">pinch floor: </label>
+                    <input id="pinchFloor" checked={$pinch === 'pinchFloor'} type="checkbox"
+                           on:change={() => ($pinch = 'pinchFloor')}/>
+                    <label for="zoom">zoom: </label>
+                    <input id="zoom" checked={$zoom} type="checkbox"
+                           on:change={() => ($zoom = !$zoom)}/>
+                </div>
+
                 <button class="btn" on:click={() => resetPosition('floor')}>reset</button>
             </div>
         </div>
     </div>
-
 {/if}
 
 <style lang="scss">
@@ -148,8 +186,8 @@
     gap: 5px;
 
     position: fixed;
-    top: 10%;
-    left: 10%;
+    top: 50px;
+    left: 20px;
 
     background-color: #242424;
     color: white;

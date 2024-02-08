@@ -10,6 +10,9 @@
     const selectedFloor = getContext('floor');
     const cfg = getContext('cfg');
 
+    /**
+     * Functions
+     */
     const handleSelect = (floor) => {
       window.dispatchEvent(
         new CustomEvent('select-floor', { detail: floor }),
