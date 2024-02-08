@@ -27,7 +27,7 @@ body {
     margin: 0;
     display: flex;
     place-items: center;
-    background-color: #242424;
+    background-image: url("../public/bg.jpg");
     min-width: 320px;
     min-height: 100vh;
 }
@@ -42,7 +42,7 @@ h1 {
 }
 
 #app {
-    max-width: 100%;
+    width: 100%;
     margin: 0 auto;
     padding: 2rem;
     text-align: center;
